@@ -4,29 +4,35 @@ package com.simplon.MavenUpLo;
  * Created by alex on 27/02/2017.
  */
 public class Chain {
-    private String myChain;
-    private String newChain;
 
-    public Chain (String myChain, String newChain){
-        this.myChain = myChain;
-        this.newChain = newChain;
-    }
 
-    public String transform() {
-        for (char c : myChain.toCharArray()) {
-            char d = '0';
-            if (c <= 'Z' && c >= 'A') {
-                d = (char) ((int) c + 32);
-                newChain += d;
-            } else if (c <= 'z' && c >= 'a') {
-                d = (char) ((int) c - 32);
-                newChain += d;
-            } else {
+    public String toAlternativeString(String input) {
+        String result = "";
+        char[] letters = input.toCharArray();
+
+        for (char letter : letters) {
+            if (letter <= 'Z' && letter >= 'A') {
+                result += upperToLowerByUnicode(letter);
+            }
+            else if (letter <= 'z' && letter >= 'a') {
+                result += lowerToUpperByUnicode(letter);
+            }
+            else {
                 System.out.println("votre chaine contient un caractère invalide");
-                newChain = "Erreur";
+                result = "Erreur";
                 break;
             }
         }
-        return newChain;
+        return result;
+    }
+
+    private char upperToLowerByUnicode (char letter){
+        int d = ( letter + 32);
+        return (char) d;
+    }
+
+    private char lowerToUpperByUnicode (char letter){
+        int d = ( letter - 32);
+        return (char) d;
     }
 }
